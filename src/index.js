@@ -859,7 +859,7 @@ let raf;
 
 const engine = (() => {
   function play() { 
-    raf = requestAnimationFrame(step);
+    raf = setTimeout(step, 5);
   }
   function step(t) {
     let activeInstancesLength = activeInstances.length;
@@ -868,7 +868,7 @@ const engine = (() => {
       while (i < activeInstancesLength) {
         const activeInstance = activeInstances[i];
         if (!activeInstance.paused) {
-          activeInstance.tick(t);
+          activeInstance.tick(performance.now());
         } else {
           const instanceIndex = activeInstances.indexOf(activeInstance);
           if (instanceIndex > -1) {
@@ -880,7 +880,7 @@ const engine = (() => {
       }
       play();
     } else {
-      raf = cancelAnimationFrame(raf);
+      raf = clearTimeout(raf);
     }
   }
   return play;
