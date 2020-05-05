@@ -859,7 +859,7 @@ let raf;
 
 const engine = (() => {
   function play() { 
-    raf = setTimeout(step);
+    raf = setTimeout(step, 5);
   }
   function step(t) {
     let activeInstancesLength = activeInstances.length;
@@ -880,7 +880,7 @@ const engine = (() => {
       }
       play();
     } else {
-      raf = setTimeout(raf);
+      raf = clearTimeout(raf);
     }
   }
   return play;
